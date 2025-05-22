@@ -37,9 +37,12 @@ const Login = () => {
   }
   useEffect(() => {
     if (token) {
-      navigate('/')
+      console.log("Token:", token);
+      setTimeout(() => navigate('/'), 100);
     }
   }, [token])
+
+
   return (
     <div>
       <form onSubmit={onSubmitHandler} className="flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-gray-800">
@@ -53,7 +56,7 @@ const Login = () => {
         <div className="w-full flex justify-between text-sm mt-[-8px]">
           <p className="cursor-pointer">Forget your password?</p>
           {
-            currentState === "Login" ? <p onClick={() => setCurrentState("Sign up")} className="cursor-pointer ">Create account</p> : <p onClick={() => setCurrentState("Login")} className="cursor-pointer ">Login Here</p>
+            currentState === "Login" ? <p onClick={() => setCurrentState("Sign Up")} className="cursor-pointer ">Create account</p> : <p onClick={() => setCurrentState("Login")} className="cursor-pointer ">Login Here</p>
           }
         </div>
         <button className="bg-black text-white font-light px-8 py-2 mt-4 cursor-pointer">{currentState === "Login" ? 'Sign In' : "Sign Up"}</button>
