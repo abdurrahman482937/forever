@@ -8,21 +8,23 @@ const Cart = () => {
   const { products, cartItems, currency, updateQuantity, navigate } = useContext(ShopContext)
   const [cartData, setCartData] = useState([])
   useEffect(() => {
-    const tempData = []
-    for (const items in cartItems) {
-      for (const item in cartItems[items]) {
-        if (cartItems[items][item] > 0) {
-          tempData.push({
-            _id: items,
-            size: item,
-            quantity: cartItems[items][item]
-          })
+    if (products.length > 0) {
+      const tempData = []
+      for (const items in cartItems) {
+        for (const item in cartItems[items]) {
+          if (cartItems[items][item] > 0) {
+            tempData.push({
+              _id: items,
+              size: item,
+              quantity: cartItems[items][item]
+            })
+          }
         }
       }
+      setCartData(tempData);
+      console.log(tempData);
     }
-    setCartData(tempData);
-    console.log(tempData);
-  }, [cartItems])
+  }, [cartItems, products])
   return (
     <div className="border-t pt-14">
       <div className="text-2xl mb-3">
@@ -53,7 +55,7 @@ const Cart = () => {
         <div className="w-full sm:w-[450px]">
           <CartTotal />
           <div className="w-full text-end">
-            <button onClick={()=> navigate('/place-order')} className="bg-black text-white text-sm my-8 px-8 py-3 cursor-pointer">PROCEED TO CHECKOUT</button>
+            <button onClick={() => navigate('/place-order')} className="bg-black text-white text-sm my-8 px-8 py-3 cursor-pointer">PROCEED TO CHECKOUT</button>
           </div>
         </div>
       </div>
