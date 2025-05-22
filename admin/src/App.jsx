@@ -8,7 +8,8 @@ import { useEffect, useState } from 'react'
 import Login from './components/Login'
 import { ToastContainer } from 'react-toastify';
 
-export const backendUrl = "http://localhost:3000";
+export const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 export const currency = "$";
 
 console.log("Backend URL:", backendUrl);
