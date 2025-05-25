@@ -11,10 +11,19 @@ export default function Orders({ token }) {
         if (!token) {
             return null
         }
-
         try {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
 
-            const response = await axios.post(backendUrl + "/api/order/list", {}, { headers: { token } })
+            const response = await axios.post(
+                backendUrl + "/api/order/list",
+                {},
+                config
+            )
+
             if (response.data.success) {
                 setOrders(response.data.orders)
             } else {
@@ -29,12 +38,23 @@ export default function Orders({ token }) {
 
     const statusHandler = async (e, orderId) => {
         try {
-            const response = await axios.post(backendUrl + "/api/order/status", { orderId, status: e.target.value }, { headers: { token } })
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const response = await axios.post(
+                backendUrl + "/api/order/status",
+                { orderId, status: e.target.value },
+                config
+            )
+
             if (response.data.success) {
                 await fetchAllOrders()
             }
         } catch (error) {
-            console.log(error);
+            console.log(error)
             toast.error(error.message)
         }
     }
@@ -44,7 +64,7 @@ export default function Orders({ token }) {
     }, [token])
     return (
         <div>
-            <h3>Order Page</h3>
+            <h3 className='mt-5'>Order Page</h3>
             <div className="">
                 {
                     orders.reverse().map((order, inx) => (
